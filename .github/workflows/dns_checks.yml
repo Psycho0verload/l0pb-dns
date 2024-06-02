@@ -2,7 +2,7 @@
 # dns_checks.yml (c) 2024
 # Desc: Check the DNSControl configuration and preview the changes
 # Created:  2024-05-31T20:41:19.509Z
-# Modified: 2024-06-02T07:52:50.141Z
+# Modified: 2024-06-02T07:53:43.558Z
 on:
   workflow_dispatch:
   push:
@@ -15,14 +15,14 @@ jobs:
     - name: Checkout 
     - uses: actions/checkout@v4
     - name: "Check the configuration"
-      uses: addnab/docker-run-action@v3
+    - uses: addnab/docker-run-action@v3
       with:
         image: ghcr.io/stackexchange/dnscontrol:latest
         options: --rm -e HOSTINGDE_AUTH_TOKEN=${{ secrets.HOSTINGDE_AUTH_TOKEN }} -v ${{ github.workspace }}:/dns
         run: |
           dnscontrol check
     - name: "Preview of the DNS changes"
-      uses: addnab/docker-run-action@v3
+    - uses: addnab/docker-run-action@v3
       with:
         image: ghcr.io/stackexchange/dnscontrol:latest
         options: --rm -e HOSTINGDE_AUTH_TOKEN=${{ secrets.HOSTINGDE_AUTH_TOKEN }} -v ${{ github.workspace }}:/dns
