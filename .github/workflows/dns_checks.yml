@@ -1,0 +1,22 @@
+# Author: Psycho0verload (29304143+Psycho0verload@users.noreply.github.com)
+# dns_checks.yml (c) 2024
+# Desc: Check the DNSControl configuration and preview the changes
+# Created:  2024-05-31T20:41:19.509Z
+# Modified: 2024-06-02T07:29:43.953Z
+on:
+  workflow_dispatch:
+  push:
+name: "⚙️ Checks"
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout 
+      uses: actions/checkout@v4 
+    - uses: addnab/docker-run-action@v3
+      with:
+        registry: ghcr.io/stackexchange/dnscontrol
+        image: dnscontrol:latest
+        options: --rm -it -e HOSTINGDE_AUTH_TOKEN=${{ secrets.HOSTINGDE_AUTH_TOKEN }} -v "${{ github.workspace }}:/dns"
+        run: |
+          check

@@ -1,0 +1,6 @@
+{
+    "hostingDe": {
+        "TYPE": "HOSTINGDE",
+        "authToken": "$HOSTINGDE_AUTH_TOKEN"
+    }
+}
