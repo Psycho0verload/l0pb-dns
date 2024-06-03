@@ -1,0 +1,21 @@
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+name: "🚀 Publish DNS Records"
+jobs:
+  publish:
+    name: "Publish"
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout 
+      uses: actions/checkout@v4
+    - name: "Publish"
+      uses: addnab/docker-run-action@v3
+      with:
+        image: ghcr.io/stackexchange/dnscontrol:latest
+        options: --rm -e HOSTINGDE_AUTH_TOKEN=${{ secrets.HOSTINGDE_AUTH_TOKEN }} -v ${{ github.workspace }}:/dns
+        run: |
+          dnscontrol push
